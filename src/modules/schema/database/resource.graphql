@@ -1,0 +1,18 @@
+type Resource {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String
+  longtitle: String
+  content: Json
+  published: Boolean!
+  deleted: Boolean!
+  hidemenu: Boolean!
+  searchable: Boolean!
+  alias: String
+  uri: String!
+  uri_override: Boolean!
+  CreatedBy: User @relation(name: "ResourceCreatedBy")
+  Parent: Resource @relation(name: "ResourceParent")
+  Childs: [Resource!]! @relation(name: "ResourceParent")
+}

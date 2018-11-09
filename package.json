@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/resource-module",
-  "description": "Resource module for @prisma-cms/cms",
+  "description": "Resource module for prisma-cms",
   "version": "1.2.0",
   "main": "src/",
   "files": [
