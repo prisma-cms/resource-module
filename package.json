@@ -14,24 +14,24 @@
     "test": "NODE_OPTIONS=\"--experimental-modules\" yarn mocha --delay __tests__/"
   },
   "dependencies": {
-    "@prisma-cms/log-module": "^1.1.2-beta",
+    "@prisma-cms/log-module": "latest",
     "@prisma-cms/prisma-module": "latest",
-    "@prisma-cms/prisma-processor": "*",
+    "@prisma-cms/prisma-processor": "latest",
     "chalk": "^2.4.1",
     "merge-graphql-schemas": "latest",
-    "translit": "*",
-    "translit-russian": "*",
-    "urijs": "*"
+    "translit": "latest",
+    "translit-russian": "latest",
+    "urijs": "latest"
   },
   "devDependencies": {
     "@prisma-cms/server": "latest",
     "expect": "^23.6.0",
-    "graphql": "*",
+    "graphql": "^14.0.2",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.5"
   },
   "resolutions": {
-    "graphql": "*"
+    "graphql": "^14.0.2"
   },
   "author": "Fi1osof",
   "license": "MIT",
