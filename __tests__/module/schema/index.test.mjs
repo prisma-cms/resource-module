@@ -35,6 +35,18 @@ const requiredTypes = [
     },
   },
   {
+    name: "Log",
+    fields: {
+      both: [
+        "id",
+      ],
+      prisma: [
+      ],
+      api: [
+      ],
+    },
+  },
+  {
     name: "User",
     fields: {
       both: [
@@ -63,7 +75,8 @@ const requiredTypes = [
         "hidemenu",
         "searchable",
         "uri",
-        "uri_override",
+        "type",
+        "isfolder",
         "CreatedBy",
       ],
       prisma: [

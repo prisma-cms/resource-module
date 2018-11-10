@@ -2,16 +2,17 @@ type Resource {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
+  type: ID! @default (value: "Resource")
   name: String
   longtitle: String
   content: Json
-  published: Boolean!
-  deleted: Boolean!
-  hidemenu: Boolean!
-  searchable: Boolean!
-  alias: String
-  uri: String!
-  uri_override: Boolean!
+  published: Boolean! @default(value: true)
+  deleted: Boolean! @default(value: false)
+  hidemenu: Boolean! @default(value: false)
+  searchable: Boolean! @default(value: true)
+  alias: String!
+  uri: String! @unique
+  isfolder: Boolean! @default(value: true)
   CreatedBy: User @relation(name: "ResourceCreatedBy")
   Parent: Resource @relation(name: "ResourceParent")
   Childs: [Resource!]! @relation(name: "ResourceParent")

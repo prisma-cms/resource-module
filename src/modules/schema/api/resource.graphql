@@ -1,0 +1,46 @@
+
+input UserCreateOneWithoutResourcesInput {
+  connect: UserWhereUniqueInput
+}
+
+input ResourceCreateOneWithoutChildsInput {
+  connect: ResourceWhereUniqueInput
+}
+
+input ResourceCreateManyWithoutParentInput {
+  connect: [ResourceWhereUniqueInput!]
+}
+
+input UserUpdateOneWithoutResourcesInput {
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+}
+
+input ResourceUpdateOneWithoutChildsInput {
+  connect: ResourceWhereUniqueInput
+  disconnect: Boolean
+}
+
+input ResourceUpdateManyWithoutParentInput {
+  connect: [ResourceWhereUniqueInput!]
+  disconnect: [ResourceWhereUniqueInput!]
+}
+
+input ResourceUpdateManyWithoutCreatedByInput {
+  connect: [ResourceWhereUniqueInput!]
+  disconnect: [ResourceWhereUniqueInput!]
+}
+
+input ResourceCreateManyWithoutCreatedByInput {
+  connect: [ResourceWhereUniqueInput!]
+}
+
+
+ 
+type ResourceResponse {
+  success: Boolean!
+  message: String
+  errors: [Error!]!
+  data: Resource
+}
+ 

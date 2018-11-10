@@ -1,36 +1,10 @@
-
-input UserCreateOneWithoutResourcesInput {
-  connect: UserWhereUniqueInput
+type Error {
+  key: String!
+  message: String!
 }
 
-input ResourceCreateOneWithoutChildsInput {
-  connect: ResourceWhereUniqueInput
-}
-
-input ResourceCreateManyWithoutParentInput {
-  connect: [ResourceWhereUniqueInput!]
-}
-
-input UserUpdateOneWithoutResourcesInput {
-  connect: UserWhereUniqueInput
-  disconnect: Boolean
-}
-
-input ResourceUpdateOneWithoutChildsInput {
-  connect: ResourceWhereUniqueInput
-  disconnect: Boolean
-}
-
-input ResourceUpdateManyWithoutParentInput {
-  connect: [ResourceWhereUniqueInput!]
-  disconnect: [ResourceWhereUniqueInput!]
-}
-
-input ResourceUpdateManyWithoutCreatedByInput {
-  connect: [ResourceWhereUniqueInput!]
-  disconnect: [ResourceWhereUniqueInput!]
-}
-
-input ResourceCreateManyWithoutCreatedByInput {
-  connect: [ResourceWhereUniqueInput!]
+type Mutation {
+  createResourceProcessor(
+    data: ResourceCreateInput!
+  ): ResourceResponse!
 }

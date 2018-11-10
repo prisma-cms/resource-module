@@ -14,9 +14,14 @@
     "test": "NODE_OPTIONS=\"--experimental-modules\" yarn mocha --delay __tests__/"
   },
   "dependencies": {
+    "@prisma-cms/log-module": "^1.1.2-beta",
     "@prisma-cms/prisma-module": "latest",
+    "@prisma-cms/prisma-processor": "*",
     "chalk": "^2.4.1",
-    "merge-graphql-schemas": "latest"
+    "merge-graphql-schemas": "latest",
+    "translit": "*",
+    "translit-russian": "*",
+    "urijs": "*"
   },
   "devDependencies": {
     "@prisma-cms/server": "latest",
