@@ -1,4 +1,10 @@
 
-import Module from "./modules";
+import Module, {
+  ResourceProcessor,
+} from "./modules";
+
+export {
+  ResourceProcessor,
+}
 
 export default Module

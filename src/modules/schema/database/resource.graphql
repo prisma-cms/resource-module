@@ -3,17 +3,21 @@ type Resource {
   createdAt: DateTime!
   updatedAt: DateTime!
   type: ID! @default (value: "Resource")
-  name: String
+  name: String!
   longtitle: String
+
   content: Json
+  """Raw text from content"""
+  contentText: String
+
   published: Boolean! @default(value: true)
   deleted: Boolean! @default(value: false)
   hidemenu: Boolean! @default(value: false)
   searchable: Boolean! @default(value: true)
-  alias: String!
   uri: String! @unique
   isfolder: Boolean! @default(value: true)
-  CreatedBy: User @relation(name: "ResourceCreatedBy")
+  
+  CreatedBy: User! @relation(name: "ResourceCreatedBy")
   Parent: Resource @relation(name: "ResourceParent")
   Childs: [Resource!]! @relation(name: "ResourceParent")
 }

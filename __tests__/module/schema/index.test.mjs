@@ -69,7 +69,7 @@ const requiredTypes = [
         "name",
         "longtitle",
         "content",
-        "alias",
+        "contentText",
         "published",
         "deleted",
         "hidemenu",

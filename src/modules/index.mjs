@@ -41,7 +41,6 @@ export class ResourceProcessor extends PrismaProcessor {
     let {
       data: {
         name,
-        alias,
         uri,
         ...data
       },
@@ -51,7 +50,8 @@ export class ResourceProcessor extends PrismaProcessor {
     let uriData = await this.prepareUri(args);
 
     Object.assign(data, {
-      ...uriData
+      ...uriData,
+      ...this.getCreatedBy(),
     });
 
 
@@ -70,11 +70,15 @@ export class ResourceProcessor extends PrismaProcessor {
     let {
       data: {
         name,
+        content,
+        contentText,
         ...data
       },
     } = args;
 
-    name = this.prepareName(name);
+    this.prepareContent(args, data, method);
+
+    name = this.prepareName(args);
 
     Object.assign(data, {
       name,
@@ -89,7 +93,70 @@ export class ResourceProcessor extends PrismaProcessor {
   }
 
 
-  prepareName(name) {
+  prepareContent(args, data, method) {
+
+    let {
+      data: {
+        content,
+      },
+    } = args;
+
+    if (content !== undefined) {
+
+      const {
+        blocks,
+      } = content || {};
+
+      let textArray = blocks && blocks.map(({ text }) => text && text.trim() || "").filter(n => n) || [];
+
+      let contentText = textArray.join(" ");
+
+      Object.assign(data, {
+        content,
+        contentText,
+      });
+    }
+
+    // console.log(chalk.green("prepareContent content"), typeof content, content, data);
+
+    // this.addError("Sdfsdfsdf");
+
+    return data;
+  }
+
+
+  getCreatedBy() {
+
+    const {
+      currentUser,
+    } = this.ctx;
+
+    if (!currentUser) {
+      this.addError("Необходимо авторизоваться");
+      return;
+    }
+
+    const {
+      id,
+    } = currentUser;
+
+    return {
+      CreatedBy: {
+        connect: {
+          id,
+        },
+      },
+    }
+  }
+
+
+  prepareName(args) {
+
+    let {
+      data: {
+        name,
+      },
+    } = args;
 
     if (name !== undefined) {
       name = name.trim();
@@ -112,22 +179,15 @@ export class ResourceProcessor extends PrismaProcessor {
     let {
       data: {
         name,
-        alias,
         uri,
         isfolder = true,
         Parent,
       },
     } = args;
 
+    // console.log(chalk.green("prepareUri uri"), uri);
 
-    name = this.prepareName(name);
-
-    if (!alias) {
-      alias = name;
-    }
-
-    alias = this.translit(alias.trim()).toLowerCase();
-    alias = this.escapeUri(alias);
+    name = this.prepareName(args);
 
     /**
      * Если нет УРИ, генерируем из родителя и алиаса.
@@ -135,15 +195,15 @@ export class ResourceProcessor extends PrismaProcessor {
      */
     if (!uri) {
 
-      uri = new URI(alias);
+      uri = new URI(name);
 
-      if(Parent && Parent.connect){
+      if (Parent && Parent.connect) {
 
         let parent = await db.query.resource({
           where: Parent.connect,
         });
 
-        if(parent){
+        if (parent) {
 
           let parentUri = new URI(parent.uri);
 
@@ -160,9 +220,9 @@ export class ResourceProcessor extends PrismaProcessor {
           parentUri.suffix("");
 
           // this.addFieldError("test parentUri", parentUri.path());
-          
+
           uri.directory(parentUri.path());
-          
+
           // this.addFieldError("test uri", uri.toString());
         }
 
@@ -173,19 +233,18 @@ export class ResourceProcessor extends PrismaProcessor {
 
     if (uri !== undefined) {
 
+      uri = this.translit(uri.trim()).toLowerCase();
+
       uri = new URI(uri);
 
-      console.log(chalk.green("URL"), uri);
+      // console.log(chalk.green("URL"), uri);
 
-      // let segment = uri.segment();
+      let segment = uri.segment();
 
-      // if(segment[0] !== "/"){
-      //   // segment.unshift("/");
-      //   // uri.segment(0, '/')
-      // }
-      // uri.segment(0, '/')
+      segment = segment.map(n => this.escapeUri(n));
 
-      // uri.segment(['/', "sdfsdf", "fdgdfg"])
+      uri.segment(segment);
+       
 
       let pathname = uri.pathname();
 
@@ -202,24 +261,8 @@ export class ResourceProcessor extends PrismaProcessor {
           this.addSuffix(uri);
         }
 
-        // this.addFieldError("uri suffix", suffix);
       }
 
-      // this.addFieldError("uri pathname", pathname);
-      // this.addFieldError("uri pathname 2", uri.pathname());
-      // this.addFieldError("uri directory", uri.directory());
-
-      // uri.directory("/")
-
-      console.log(chalk.green("URL directory"), uri.directory());
-      console.log(chalk.green("URL filename"), uri.filename());
-
-      console.log(chalk.green("URL segment"), uri.segment());
-      console.log(chalk.green("URL fragment"), uri.fragment());
-
-      // this.addFieldError("uri", uri.toString());
-
-      // this.addFieldError("uri directory 2", uri.directory());
 
 
       // Проверяем на уникальность
@@ -229,13 +272,15 @@ export class ResourceProcessor extends PrismaProcessor {
 
       if (exists) {
 
-        if(cycles === 0){
+        if (cycles === 0) {
 
           this.addFieldError("uri", "Ошибка генерации уникального УРЛ. Превышено количество попыток.");
           return;
         }
 
-        // alias.match
+        // console.log(chalk.green("exists uri"), uri);
+
+        // this.addFieldError("uri", "test");
 
         // return this.prepareUri(args);
         let filename = uri.filename();
@@ -253,14 +298,14 @@ export class ResourceProcessor extends PrismaProcessor {
 
             filename = uri.filename();
 
-            console.log(chalk.green("Resulted filename 2"), filename);
+            // console.log(chalk.green("Resulted filename 2"), filename);
 
           }
+          // console.log(chalk.green("Resulted match"), match);
 
           let reg = /(\-(\d+)|)$/;
 
           let match = filename.match(reg);
-          console.log(chalk.green("Resulted match"), match);
 
           let index = match && parseInt(match[2]) || 0;
 
@@ -278,18 +323,13 @@ export class ResourceProcessor extends PrismaProcessor {
 
       }
 
-      uri = uri.toString();
+      uri = URI.decode(uri.toString());
     }
 
-    // this.addFieldError("name", name);
-    // this.addFieldError("alias", alias);
-    // this.addFieldError("uri", uri);
-
-    console.log(chalk.green("Resulted uri"), uri);
+    // console.log(chalk.green("Resulted uri"), uri);
 
     return {
       name,
-      alias,
       uri,
       isfolder,
     };
