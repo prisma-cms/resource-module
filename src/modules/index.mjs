@@ -5,6 +5,7 @@ import chalk from "chalk";
 
 import PrismaModule from "@prisma-cms/prisma-module";
 import LogModule from "@prisma-cms/log-module";
+import UploadModule from "@prisma-cms/upload-module";
 import PrismaProcessor from "@prisma-cms/prisma-processor";
 
 import MergeSchema from 'merge-graphql-schemas';
@@ -347,7 +348,7 @@ export class ResourceProcessor extends PrismaProcessor {
   }
 
   escapeUri(uri) {
-    return uri.replace(/[\/]+/g, ' ').replace(/[ -]+/g, '-')
+    return uri.replace(/[\/\? ]+/g, '-').replace(/\-+/g, '-')
   }
 
 }
@@ -363,6 +364,7 @@ class Module extends PrismaModule {
 
     this.mergeModules([
       LogModule,
+      UploadModule,
     ]);
 
   }

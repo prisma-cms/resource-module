@@ -1,3 +1,8 @@
+1.3.0
+===============================
+- Fix Resource::escapeUri
+- Added Resource.Image relation
+
 1.2.0
 ===============================
 - Added Resource schema

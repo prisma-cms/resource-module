@@ -78,6 +78,20 @@ const requiredTypes = [
         "type",
         "isfolder",
         "CreatedBy",
+        "Image",
+      ],
+      prisma: [
+      ],
+      api: [
+      ],
+    },
+  },
+  {
+    name: "File",
+    fields: {
+      both: [
+        "id",
+        "ImageResource",
       ],
       prisma: [
       ],

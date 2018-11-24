@@ -1,7 +1,7 @@
 {
   "name": "@prisma-cms/resource-module",
   "description": "Resource module for prisma-cms",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "main": "src/",
   "files": [
     "src"
@@ -17,6 +17,7 @@
     "@prisma-cms/log-module": "latest",
     "@prisma-cms/prisma-module": "latest",
     "@prisma-cms/prisma-processor": "latest",
+    "@prisma-cms/upload-module": "latest",
     "chalk": "^2.4.1",
     "merge-graphql-schemas": "latest",
     "translit": "latest",
