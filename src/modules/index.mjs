@@ -196,7 +196,7 @@ export class ResourceProcessor extends PrismaProcessor {
      */
     if (!uri) {
 
-      uri = new URI(name);
+      uri = new URI(this.escapeUri(name));
 
       if (Parent && Parent.connect) {
 
@@ -234,15 +234,19 @@ export class ResourceProcessor extends PrismaProcessor {
 
     if (uri !== undefined) {
 
-      uri = this.translit(uri.trim()).toLowerCase();
+      uri = this.translit(uri.trim()).replace(/[\?\# ]+/g, '-').toLowerCase();
 
       uri = new URI(uri);
 
       // console.log(chalk.green("URL"), uri);
-
+      
       let segment = uri.segment();
 
-      segment = segment.map(n => this.escapeUri(n));
+      // console.log(chalk.green("segment"), segment);
+      
+      segment = segment.map(n => this.escapeUri(n).replace(/^\-+|\-$/g, '').trim()).filter(n => n);
+
+      // console.log(chalk.green("segment 2"), segment);
 
       uri.segment(segment);
        

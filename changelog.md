@@ -1,3 +1,7 @@
+1.3.1
+===============================
+- Fix Resource::prepareUri
+
 1.3.0
 ===============================
 - Fix Resource::escapeUri
