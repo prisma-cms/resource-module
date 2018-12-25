@@ -1,3 +1,7 @@
+1.3.2
+===============================
+- getApiSchema() now get prisma schema from current module dir only
+
 1.3.1
 ===============================
 - Fix Resource::prepareUri
