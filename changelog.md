@@ -1,3 +1,7 @@
+1.3.3
+===============================
+- Fix default args query
+
 1.3.2
 ===============================
 - getApiSchema() now get prisma schema from current module dir only

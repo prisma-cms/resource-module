@@ -456,15 +456,16 @@ class Module extends PrismaModule {
 
 
   resources(source, args, ctx, info) {
-    return ctx.db.query.resources({}, info);
+
+    return ctx.db.query.resources(args, info);
   }
 
   resource(source, args, ctx, info) {
-    return ctx.db.query.resource({}, info);
+    return ctx.db.query.resource(args, info);
   }
 
   resourcesConnection(source, args, ctx, info) {
-    return ctx.db.query.resourcesConnection({}, info);
+    return ctx.db.query.resourcesConnection(args, info);
   }
 
 
