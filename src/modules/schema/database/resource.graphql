@@ -1,9 +1,16 @@
+enum ResourceType {
+  Resource
+  Blog
+  Topic
+  Comment
+}
+
 type Resource {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
-  type: ID! @default (value: "Resource")
-  name: String!
+  type: ResourceType @default (value: "Resource")
+  name: String
   longtitle: String
 
   content: Json

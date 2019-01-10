@@ -1,3 +1,10 @@
+1.3.4
+===============================
+- Added ResourceType
+- Make Resource::type is instance of ResourceType
+- Make Resource::type not required
+- Make Resource::name not required
+
 1.3.3
 ===============================
 - Fix default args query
