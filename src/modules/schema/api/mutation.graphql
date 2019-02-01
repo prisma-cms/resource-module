@@ -4,7 +4,14 @@ type Error {
 }
 
 type Mutation {
+
   createResourceProcessor(
     data: ResourceCreateInput!
   ): ResourceResponse!
+
+  updateResourceProcessor(
+    data: ResourceUpdateInput!
+    where: ResourceWhereUniqueInput!
+  ): ResourceResponse!
+
 }

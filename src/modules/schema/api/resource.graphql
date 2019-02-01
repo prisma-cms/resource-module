@@ -1,4 +1,42 @@
 
+input ResourceCreateInput {
+  type: ResourceType
+  name: String
+  longtitle: String
+  content: Json
+  contentText: String
+  published: Boolean
+  deleted: Boolean
+  hidemenu: Boolean
+  searchable: Boolean
+  uri: String
+  isfolder: Boolean
+  # CreatedBy: UserCreateOneWithoutResourcesInput!
+  Parent: ResourceCreateOneWithoutChildsInput
+  Childs: ResourceCreateManyWithoutParentInput
+  Image: FileCreateOneWithoutImageResourceInput
+}
+
+
+input ResourceUpdateInput {
+  type: ResourceType
+  name: String
+  longtitle: String
+  content: Json
+  contentText: String
+  published: Boolean
+  deleted: Boolean
+  hidemenu: Boolean
+  searchable: Boolean
+  uri: String
+  isfolder: Boolean
+  # CreatedBy: UserUpdateOneWithoutResourcesInput
+  Parent: ResourceUpdateOneWithoutChildsInput
+  Childs: ResourceUpdateManyWithoutParentInput
+  Image: FileUpdateOneWithoutImageResourceInput
+}
+
+
 input UserCreateOneWithoutResourcesInput {
   connect: UserWhereUniqueInput
 }
@@ -35,7 +73,19 @@ input ResourceCreateManyWithoutCreatedByInput {
   connect: [ResourceWhereUniqueInput!]
 }
 
+input FileCreateOneWithoutImageResourceInput {
+  # create: FileCreateWithoutImageResourceInput
+  connect: FileWhereUniqueInput
+}
 
+input FileUpdateOneWithoutImageResourceInput {
+  # create: FileCreateWithoutImageResourceInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  # delete: Boolean
+  # update: FileUpdateWithoutImageResourceDataInput
+  # upsert: FileUpsertWithoutImageResourceInput
+}
  
 type ResourceResponse {
   success: Boolean!

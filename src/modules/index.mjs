@@ -406,6 +406,8 @@ class Module extends PrismaModule {
     }
 
     let apiSchema = super.getApiSchema(types.concat(baseSchema), [
+      "ResourceCreateInput",
+      "ResourceUpdateInput",
       "UserCreateOneWithoutResourcesInput",
       "ResourceCreateOneWithoutChildsInput",
       "ResourceCreateManyWithoutParentInput",
@@ -414,6 +416,8 @@ class Module extends PrismaModule {
       "ResourceUpdateManyWithoutParentInput",
       "ResourceUpdateManyWithoutCreatedByInput",
       "ResourceCreateManyWithoutCreatedByInput",
+      "FileCreateOneWithoutImageResourceInput",
+      "FileUpdateOneWithoutImageResourceInput",
     ]);
 
     let schema = fileLoader(__dirname + '/schema/api/', {
@@ -442,6 +446,7 @@ class Module extends PrismaModule {
 
     Object.assign(resolvers.Mutation, {
       createResourceProcessor: this.createResourceProcessor.bind(this),
+      updateResourceProcessor: this.updateResourceProcessor.bind(this),
     });
 
     // Object.assign(resolvers.Subscription, this.Subscription);
@@ -480,6 +485,11 @@ class Module extends PrismaModule {
   createResourceProcessor(source, args, ctx, info) {
 
     return this.getProcessor(ctx).createWithResponse("Resource", args, info);
+  }
+
+  updateResourceProcessor(source, args, ctx, info) {
+
+    return this.getProcessor(ctx).updateWithResponse("Resource", args, info);
   }
 
   ResourceResponse() {

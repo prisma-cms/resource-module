@@ -9,7 +9,7 @@ type Resource {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
-  type: ResourceType @default (value: "Resource")
+  type: ResourceType @default (value: Resource)
   name: String
   longtitle: String
 
