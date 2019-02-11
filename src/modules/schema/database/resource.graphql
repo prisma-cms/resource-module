@@ -7,6 +7,7 @@ enum ResourceType {
 
 type Resource {
   id: ID! @unique
+  code: ID @unique
   createdAt: DateTime!
   updatedAt: DateTime!
   type: ResourceType @default (value: Resource)

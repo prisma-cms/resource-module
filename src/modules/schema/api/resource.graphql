@@ -1,6 +1,7 @@
 
 input ResourceCreateInput {
   type: ResourceType
+  code: ID
   name: String
   longtitle: String
   content: Json
@@ -20,6 +21,7 @@ input ResourceCreateInput {
 
 input ResourceUpdateInput {
   type: ResourceType
+  code: ID
   name: String
   longtitle: String
   content: Json
