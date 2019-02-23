@@ -62,6 +62,10 @@ export class ResourceProcessor extends PrismaProcessor {
 
     // return this.addFieldError("test", "error");
 
+    if(!data.uri) {
+      return this.addError("Не был сформирован uri документа");
+    }
+
     return super.create(method, args, info);
   }
 

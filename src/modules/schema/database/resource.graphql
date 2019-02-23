@@ -22,7 +22,7 @@ type Resource {
   deleted: Boolean! @default(value: false)
   hidemenu: Boolean! @default(value: false)
   searchable: Boolean! @default(value: true)
-  uri: String! @unique
+  uri: String @unique
   isfolder: Boolean! @default(value: true)
   
   CreatedBy: User! @relation(name: "ResourceCreatedBy")

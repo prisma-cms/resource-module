@@ -1,3 +1,7 @@
+1.3.7
+===============================
+- Resource::uri became not required anymore
+
 1.3.6
 ===============================
 - Added Resource::code
