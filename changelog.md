@@ -1,3 +1,7 @@
+1.3.8
+===============================
+- Added relation ResourcePrismaProject
+
 1.3.7
 ===============================
 - Resource::uri became not required anymore

@@ -29,4 +29,7 @@ type Resource {
   Parent: Resource @relation(name: "ResourceParent")
   Childs: [Resource!]! @relation(name: "ResourceParent")
   Image: File @relation(name: "ResourceImage")
+
+  """Привязка ресурса к конкретному проекту"""
+  PrismaProject: Project @relation(name: "PrismaProjectResources")
 }

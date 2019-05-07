@@ -1,0 +1,8 @@
+
+type Project {
+  id: ID! @unique
+
+  domain: String @unique
+
+  PrismaResources: [Resource!]! @relation(name: "PrismaProjectResources")
+}

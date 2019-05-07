@@ -39,10 +39,19 @@ export class ResourceProcessor extends PrismaProcessor {
 
   async create(method, args, info) {
 
+    const {
+      ctx,
+    } = this;
+
+    const {
+      getProjectFromRequest,
+    } = ctx;
+
     let {
       data: {
         name,
         uri,
+        PrismaProject,
         ...data
       },
     } = args;
@@ -50,7 +59,37 @@ export class ResourceProcessor extends PrismaProcessor {
 
     let uriData = await this.prepareUri(args);
 
+
+    /**
+     * Пытаемся получить проект по заголовкам запроса.
+     * Если получим, то устанавливаем в качестве проекта.
+     * Если нет, то сбрасываем.
+     */
+    const project = await getProjectFromRequest(ctx);
+
+    if (project) {
+
+      const {
+        id: projectId,
+      } = project;
+
+      PrismaProject = {
+        connect: {
+          id: projectId,
+        },
+      }
+
+    }
+    else {
+      PrismaProject = undefined;
+    }
+
+
+    // console.log("PrismaProject", PrismaProject);
+
+
     Object.assign(data, {
+      PrismaProject,
       ...uriData,
       ...this.getCreatedBy(),
     });
@@ -62,11 +101,36 @@ export class ResourceProcessor extends PrismaProcessor {
 
     // return this.addFieldError("test", "error");
 
-    if(!data.uri) {
+    if (!data.uri) {
       return this.addError("Не был сформирован uri документа");
     }
 
     return super.create(method, args, info);
+  }
+
+
+  async update(method, args, info) {
+
+    let {
+      data: {
+
+        // Запрещаем обновление проекта
+        PrismaProject,
+        ...data
+      },
+    } = args;
+
+
+    Object.assign(data, {
+    });
+
+
+    Object.assign(args, {
+      data,
+    });
+
+
+    return super.update(method, args, info);
   }
 
 
@@ -80,6 +144,7 @@ export class ResourceProcessor extends PrismaProcessor {
         ...data
       },
     } = args;
+
 
     this.prepareContent(args, data, method);
 
@@ -243,17 +308,17 @@ export class ResourceProcessor extends PrismaProcessor {
       uri = new URI(uri);
 
       // console.log(chalk.green("URL"), uri);
-      
+
       let segment = uri.segment();
 
       // console.log(chalk.green("segment"), segment);
-      
+
       segment = segment.map(n => this.escapeUri(n).replace(/^\-+|\-$/g, '').trim()).filter(n => n);
 
       // console.log(chalk.green("segment 2"), segment);
 
       uri.segment(segment);
-       
+
 
       let pathname = uri.pathname();
 
