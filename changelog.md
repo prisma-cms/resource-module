@@ -1,3 +1,8 @@
+1.3.9
+===============================
+- Fix % in url. https://github.com/medialize/URI.js/issues/382
+- Fix name.trim()
+
 1.3.8
 ===============================
 - Added relation ResourcePrismaProject

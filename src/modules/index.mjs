@@ -229,7 +229,7 @@ export class ResourceProcessor extends PrismaProcessor {
     } = args;
 
     if (name !== undefined) {
-      name = name.trim();
+      name = name && name.trim() || null;
 
       if (!name) {
         this.addFieldError("name", "Не заполнено название");
@@ -421,7 +421,7 @@ export class ResourceProcessor extends PrismaProcessor {
   }
 
   escapeUri(uri) {
-    return uri.replace(/[\/\? ]+/g, '-').replace(/\-+/g, '-')
+    return uri.replace(/[\/\?\% ]+/g, '-').replace(/\-+/g, '-')
   }
 
 }
