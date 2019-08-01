@@ -1,3 +1,7 @@
+1.3.10
+===============================
+- Fix escapeUri()
+
 1.3.9
 ===============================
 - Fix % in url. https://github.com/medialize/URI.js/issues/382

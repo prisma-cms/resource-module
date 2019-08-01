@@ -295,6 +295,9 @@ export class ResourceProcessor extends PrismaProcessor {
 
           // this.addFieldError("test uri", uri.toString());
         }
+        else {
+          throw new Error("Can not get parent resource");
+        }
 
       }
 
@@ -421,7 +424,7 @@ export class ResourceProcessor extends PrismaProcessor {
   }
 
   escapeUri(uri) {
-    return uri.replace(/[\/\?\% ]+/g, '-').replace(/\-+/g, '-')
+    return uri ? uri.replace(/[\/\?\% ]+/g, '-').replace(/\-+/g, '-') : "";
   }
 
 }
