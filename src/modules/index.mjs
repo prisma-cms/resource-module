@@ -34,6 +34,9 @@ export class ResourceProcessor extends PrismaProcessor {
 
     this.objectType = "Resource";
 
+    this.private = true;
+    this.ownable = true;
+
   }
 
 
@@ -91,7 +94,7 @@ export class ResourceProcessor extends PrismaProcessor {
     Object.assign(data, {
       PrismaProject,
       ...uriData,
-      ...this.getCreatedBy(),
+      // ...this.getCreatedBy(),
     });
 
 
@@ -136,28 +139,29 @@ export class ResourceProcessor extends PrismaProcessor {
 
   async mutate(method, args, info) {
 
-    let {
-      data: {
+    if (args.data) {
+
+      let {
         name,
         content,
         contentText,
         ...data
-      },
-    } = args;
+      } = args.data || {};
+
+      this.prepareContent(args, data, method);
+
+      name = this.prepareName(args);
+
+      Object.assign(data, {
+        name,
+      });
 
 
-    this.prepareContent(args, data, method);
+      Object.assign(args, {
+        data,
+      });
 
-    name = this.prepareName(args);
-
-    Object.assign(data, {
-      name,
-    });
-
-
-    Object.assign(args, {
-      data,
-    });
+    }
 
     return super.mutate(method, args);
   }
@@ -195,29 +199,29 @@ export class ResourceProcessor extends PrismaProcessor {
   }
 
 
-  getCreatedBy() {
+  // getCreatedBy() {
 
-    const {
-      currentUser,
-    } = this.ctx;
+  //   const {
+  //     currentUser,
+  //   } = this.ctx;
 
-    if (!currentUser) {
-      this.addError("Необходимо авторизоваться");
-      return;
-    }
+  //   if (!currentUser) {
+  //     this.addError("Необходимо авторизоваться");
+  //     return;
+  //   }
 
-    const {
-      id,
-    } = currentUser;
+  //   const {
+  //     id,
+  //   } = currentUser;
 
-    return {
-      CreatedBy: {
-        connect: {
-          id,
-        },
-      },
-    }
-  }
+  //   return {
+  //     CreatedBy: {
+  //       connect: {
+  //         id,
+  //       },
+  //     },
+  //   }
+  // }
 
 
   prepareName(args) {
@@ -519,6 +523,9 @@ class Module extends PrismaModule {
     Object.assign(resolvers.Mutation, {
       createResourceProcessor: this.createResourceProcessor.bind(this),
       updateResourceProcessor: this.updateResourceProcessor.bind(this),
+      deleteResource: (source, args, ctx, info) => {
+        return this.getProcessor(ctx).delete("Resource", args, info);
+      },
     });
 
     // Object.assign(resolvers.Subscription, this.Subscription);
