@@ -6,10 +6,10 @@ enum ResourceType {
 }
 
 type Resource {
-  id: ID! @unique
+  id: ID! @unique @id
   code: ID @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   type: ResourceType @default (value: Resource)
   name: String
   longtitle: String
@@ -28,7 +28,7 @@ type Resource {
   CreatedBy: User! @relation(name: "ResourceCreatedBy")
   Parent: Resource @relation(name: "ResourceParent")
   Childs: [Resource!]! @relation(name: "ResourceParent")
-  Image: File @relation(name: "ResourceImage")
+  # Image: File @relation(name: "ResourceImage")
 
   """Привязка ресурса к конкретному проекту"""
   PrismaProject: Project @relation(name: "PrismaProjectResources")

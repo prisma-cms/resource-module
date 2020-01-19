@@ -1,5 +1,5 @@
 
 type File {
-  id: ID! @unique
-  ImageResource: Resource @relation(name: "ResourceImage")
+  id: ID! @unique @id
+  # ImageResource: Resource @relation(name: "ResourceImage")
 }

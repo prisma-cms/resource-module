@@ -1,5 +1,5 @@
 
 type User {
-  id: ID! @unique
+  id: ID! @unique @id
   Resources: [Resource!]! @relation(name: "ResourceCreatedBy")
 }

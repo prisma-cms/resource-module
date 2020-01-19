@@ -1,3 +1,9 @@
+1.4.0
+===============================
+- Update schema
+- Remove @prisma-cms/upload-module
+- Remove Resource:Image
+
 1.3.11
 ===============================
 - Added resolvers

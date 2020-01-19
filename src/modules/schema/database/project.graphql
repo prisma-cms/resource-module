@@ -1,6 +1,6 @@
 
 type Project {
-  id: ID! @unique
+  id: ID! @unique @id
 
   domain: String @unique
 
