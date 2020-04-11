@@ -1,93 +1,93 @@
 
-input ResourceCreateInput {
-  type: ResourceType
-  code: ID
-  name: String
-  longtitle: String
-  content: Json
-  contentText: String
-  published: Boolean
-  deleted: Boolean
-  hidemenu: Boolean
-  searchable: Boolean
-  uri: String
-  isfolder: Boolean
-  # CreatedBy: UserCreateOneWithoutResourcesInput!
-  Parent: ResourceCreateOneWithoutChildsInput
-  Childs: ResourceCreateManyWithoutParentInput
-  Image: FileCreateOneWithoutImageResourceInput
-}
+# input ResourceCreateInput {
+#   type: ResourceType
+#   code: ID
+#   name: String
+#   longtitle: String
+#   content: Json
+#   contentText: String
+#   published: Boolean
+#   deleted: Boolean
+#   hidemenu: Boolean
+#   searchable: Boolean
+#   uri: String
+#   isfolder: Boolean
+#   # CreatedBy: UserCreateOneWithoutResourcesInput!
+#   Parent: ResourceCreateOneWithoutChildsInput
+#   Childs: ResourceCreateManyWithoutParentInput
+#   Image: FileCreateOneWithoutImageResourceInput
+# }
 
 
-input ResourceUpdateInput {
-  type: ResourceType
-  code: ID
-  name: String
-  longtitle: String
-  content: Json
-  contentText: String
-  published: Boolean
-  deleted: Boolean
-  hidemenu: Boolean
-  searchable: Boolean
-  uri: String
-  isfolder: Boolean
-  # CreatedBy: UserUpdateOneWithoutResourcesInput
-  Parent: ResourceUpdateOneWithoutChildsInput
-  Childs: ResourceUpdateManyWithoutParentInput
-  Image: FileUpdateOneWithoutImageResourceInput
-}
+# input ResourceUpdateInput {
+#   type: ResourceType
+#   code: ID
+#   name: String
+#   longtitle: String
+#   content: Json
+#   contentText: String
+#   published: Boolean
+#   deleted: Boolean
+#   hidemenu: Boolean
+#   searchable: Boolean
+#   uri: String
+#   isfolder: Boolean
+#   # CreatedBy: UserUpdateOneWithoutResourcesInput
+#   Parent: ResourceUpdateOneWithoutChildsInput
+#   Childs: ResourceUpdateManyWithoutParentInput
+#   Image: FileUpdateOneWithoutImageResourceInput
+# }
 
 
-input UserCreateOneWithoutResourcesInput {
-  connect: UserWhereUniqueInput
-}
+# input UserCreateOneWithoutResourcesInput {
+#   connect: UserWhereUniqueInput
+# }
 
-input ResourceCreateOneWithoutChildsInput {
-  connect: ResourceWhereUniqueInput
-}
+# input ResourceCreateOneWithoutChildsInput {
+#   connect: ResourceWhereUniqueInput
+# }
 
-input ResourceCreateManyWithoutParentInput {
-  connect: [ResourceWhereUniqueInput!]
-}
+# input ResourceCreateManyWithoutParentInput {
+#   connect: [ResourceWhereUniqueInput!]
+# }
 
-input UserUpdateOneWithoutResourcesInput {
-  connect: UserWhereUniqueInput
-  disconnect: Boolean
-}
+# input UserUpdateOneWithoutResourcesInput {
+#   connect: UserWhereUniqueInput
+#   disconnect: Boolean
+# }
 
-input ResourceUpdateOneWithoutChildsInput {
-  connect: ResourceWhereUniqueInput
-  disconnect: Boolean
-}
+# input ResourceUpdateOneWithoutChildsInput {
+#   connect: ResourceWhereUniqueInput
+#   disconnect: Boolean
+# }
 
-input ResourceUpdateManyWithoutParentInput {
-  connect: [ResourceWhereUniqueInput!]
-  disconnect: [ResourceWhereUniqueInput!]
-}
+# input ResourceUpdateManyWithoutParentInput {
+#   connect: [ResourceWhereUniqueInput!]
+#   disconnect: [ResourceWhereUniqueInput!]
+# }
 
-input ResourceUpdateManyWithoutCreatedByInput {
-  connect: [ResourceWhereUniqueInput!]
-  disconnect: [ResourceWhereUniqueInput!]
-}
+# input ResourceUpdateManyWithoutCreatedByInput {
+#   connect: [ResourceWhereUniqueInput!]
+#   disconnect: [ResourceWhereUniqueInput!]
+# }
 
-input ResourceCreateManyWithoutCreatedByInput {
-  connect: [ResourceWhereUniqueInput!]
-}
+# input ResourceCreateManyWithoutCreatedByInput {
+#   connect: [ResourceWhereUniqueInput!]
+# }
 
-input FileCreateOneWithoutImageResourceInput {
-  # create: FileCreateWithoutImageResourceInput
-  connect: FileWhereUniqueInput
-}
+# input FileCreateOneWithoutImageResourceInput {
+#   # create: FileCreateWithoutImageResourceInput
+#   connect: FileWhereUniqueInput
+# }
 
-input FileUpdateOneWithoutImageResourceInput {
-  # create: FileCreateWithoutImageResourceInput
-  connect: FileWhereUniqueInput
-  disconnect: Boolean
-  # delete: Boolean
-  # update: FileUpdateWithoutImageResourceDataInput
-  # upsert: FileUpsertWithoutImageResourceInput
-}
+# input FileUpdateOneWithoutImageResourceInput {
+#   # create: FileCreateWithoutImageResourceInput
+#   connect: FileWhereUniqueInput
+#   disconnect: Boolean
+#   # delete: Boolean
+#   # update: FileUpdateWithoutImageResourceDataInput
+#   # upsert: FileUpsertWithoutImageResourceInput
+# }
  
 type ResourceResponse {
   success: Boolean!

@@ -161,6 +161,7 @@ export class ResourceProcessor extends PrismaProcessor {
         data,
       });
 
+      // console.log('ResourceProcessor data', JSON.stringify(data, true, 2));
     }
 
     return super.mutate(method, args);
@@ -331,7 +332,6 @@ export class ResourceProcessor extends PrismaProcessor {
 
       if (!pathname.startsWith("/")) {
         pathname = `/${pathname}`;
-        uri.pathname(pathname);
       }
 
 
@@ -341,10 +341,16 @@ export class ResourceProcessor extends PrismaProcessor {
         if (!suffix) {
           this.addSuffix(uri);
         }
+      }
+      else {
+
+        if (!pathname.endsWith("/")) {
+          pathname = `${pathname}/`;
+        }
 
       }
 
-
+      uri.pathname(pathname);
 
       // Проверяем на уникальность
       const exists = await db.exists.Resource({
@@ -482,18 +488,18 @@ class Module extends PrismaModule {
     }
 
     let apiSchema = super.getApiSchema(types.concat(baseSchema), [
-      "ResourceCreateInput",
-      "ResourceUpdateInput",
-      "UserCreateOneWithoutResourcesInput",
-      "ResourceCreateOneWithoutChildsInput",
-      "ResourceCreateManyWithoutParentInput",
-      "UserUpdateOneWithoutResourcesInput",
-      "ResourceUpdateOneWithoutChildsInput",
-      "ResourceUpdateManyWithoutParentInput",
-      "ResourceUpdateManyWithoutCreatedByInput",
-      "ResourceCreateManyWithoutCreatedByInput",
-      "FileCreateOneWithoutImageResourceInput",
-      "FileUpdateOneWithoutImageResourceInput",
+      // "ResourceCreateInput",
+      // "ResourceUpdateInput",
+      // "UserCreateOneWithoutResourcesInput",
+      // "ResourceCreateOneWithoutChildsInput",
+      // "ResourceCreateManyWithoutParentInput",
+      // "UserUpdateOneWithoutResourcesInput",
+      // "ResourceUpdateOneWithoutChildsInput",
+      // "ResourceUpdateManyWithoutParentInput",
+      // "ResourceUpdateManyWithoutCreatedByInput",
+      // "ResourceCreateManyWithoutCreatedByInput",
+      // "FileCreateOneWithoutImageResourceInput",
+      // "FileUpdateOneWithoutImageResourceInput",
     ]);
 
     let schema = fileLoader(__dirname + '/schema/api/', {

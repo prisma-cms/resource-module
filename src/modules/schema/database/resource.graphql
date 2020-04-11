@@ -25,7 +25,7 @@ type Resource {
   uri: String @unique
   isfolder: Boolean! @default(value: true)
   
-  CreatedBy: User! @relation(name: "ResourceCreatedBy")
+  CreatedBy: User @relation(name: "ResourceCreatedBy")
   Parent: Resource @relation(name: "ResourceParent")
   Childs: [Resource!]! @relation(name: "ResourceParent")
   # Image: File @relation(name: "ResourceImage")

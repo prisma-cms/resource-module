@@ -1,5 +1,6 @@
 
 import startServer from "@prisma-cms/server";
+import URI from 'urijs';
 
 import Module from "../";
 
